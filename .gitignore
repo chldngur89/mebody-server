@@ -1,17 +1,48 @@
-# Maven
+# --- Maven / Spring Boot 빌드 산출물 (절대 커밋 금지) ---
 /target/
+
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
 release.properties
+dependency-reduced-pom.xml
 .flattened-pom.xml
 
-# Local env (secrets)
+# --- 비밀 / 로컬 전용 설정 (GitHub 등에 올라가면 위험) ---
 .env
+.env.*
+!.env.example
 
-# IDE
+*.pem
+*.p12
+*.jks
+
+# 로컬 전용 설정 (비밀·DB URL 분리용)
+**/application-local.yml
+**/application-local.properties
+**/application-*-secrets.yml
+
+# --- 로그 / 임시 ---
+*.log
+logs/
+/tmp/
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- IDE ---
 .idea/
 *.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
 .vscode/
 *.swp
 *.swo
+
+# --- 기타 빌드/캐시 ---
+.hs_err_pid*
+replay_pid*
