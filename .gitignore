@@ -1,0 +1,17 @@
+# Maven
+/target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+.flattened-pom.xml
+
+# Local env (secrets)
+.env
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo

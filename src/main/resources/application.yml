@@ -1,0 +1,44 @@
+server:
+  port: ${SERVER_PORT:8000}
+
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  application:
+    name: mebody-server
+  datasource:
+    url: ${SUPABASE_DB_URL:jdbc:postgresql://localhost:5432/postgres}
+    username: ${SUPABASE_DB_USERNAME:postgres}
+    password: ${SUPABASE_DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+  jackson:
+    default-property-inclusion: non_null
+
+mebody:
+  frontend-origin: ${FRONTEND_ORIGIN:http://127.0.0.1:3000,http://localhost:3000}
+  app-url: ${MEBODY_APP_URL:}
+  supabase:
+    url: ${SUPABASE_URL:}
+    anon-key: ${SUPABASE_ANON_KEY:}
+    jwt-secret: ${SUPABASE_JWT_SECRET:}
+    jwks-url: ${SUPABASE_JWKS_URL:}
+    service-role-key: ${SUPABASE_SERVICE_ROLE_KEY:}
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    org.springframework.security: INFO
