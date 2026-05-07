@@ -1,0 +1,7 @@
+{
+  "name": "mebody-server",
+  "private": true,
+  "scripts": {
+    "vercel-build": "node scripts/vercel-inject-api-base.js"
+  }
+}

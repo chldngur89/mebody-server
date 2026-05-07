@@ -46,3 +46,6 @@ Thumbs.db
 # --- 기타 빌드/캐시 ---
 .hs_err_pid*
 replay_pid*
+
+# Node (Vercel 빌드 스크립트용; 의존성 없음이어돀로 설치 디렉터리 제외)
+node_modules/

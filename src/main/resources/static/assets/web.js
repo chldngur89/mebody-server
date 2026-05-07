@@ -7,6 +7,20 @@ const state = {
   currentTab: 'me',
 };
 
+function apiOrigin() {
+  const b = typeof window !== 'undefined' && window.__MEBODY_API_BASE__;
+  return typeof b === 'string' ? b.trim().replace(/\/$/, '') : '';
+}
+
+/** Same-origin (`''`) when running on Spring Boot; absolute when set via api-base.js (e.g. Vercel → API host). */
+function apiUrl(path) {
+  if (!path) return '';
+  if (/^https?:\/\//i.test(path)) return path;
+  const origin = apiOrigin();
+  const p = path.startsWith('/') ? path : `/${path}`;
+  return origin ? `${origin}${p}` : p;
+}
+
 const $ = (selector) => document.querySelector(selector);
 const isAdminPath = () => window.location.pathname === '/admin';
 const isAdmin = () => state.me?.role === 'ADMIN';
@@ -31,7 +45,7 @@ function clearMessage() {
 }
 
 async function loadConfig() {
-  const response = await fetch('/api/public/config');
+  const response = await fetch(apiUrl('/api/public/config'));
   const payload = await response.json();
   state.config = payload.data;
   document.querySelectorAll('[data-app-url]').forEach((element) => {
@@ -91,7 +105,7 @@ async function supabasePasswordLogin(email, password) {
 }
 
 async function serverSignup(email, password, displayName) {
-  const response = await fetch('/api/public/auth/signup', {
+  const response = await fetch(apiUrl('/api/public/auth/signup'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password, displayName }),
@@ -107,7 +121,7 @@ async function api(path, options = {}) {
   if (!state.token) throw new Error('로그인이 필요합니다.');
   const headers = { Authorization: `Bearer ${state.token}`, ...(options.headers || {}) };
   if (options.body && !(options.body instanceof FormData)) headers['Content-Type'] = 'application/json';
-  const response = await fetch(path, { ...options, headers });
+  const response = await fetch(apiUrl(path), { ...options, headers });
   const contentType = response.headers.get('content-type') || '';
   const payload = contentType.includes('application/json') ? await response.json() : null;
   if (!response.ok) {
