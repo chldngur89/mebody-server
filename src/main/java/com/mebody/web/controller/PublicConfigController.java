@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/public")
 public class PublicConfigController {
+  private static final String DEFAULT_APP_URL = "https://mebody-jjh.vercel.app";
+
   private final SupabaseProperties supabaseProperties;
   private final String frontendOrigin;
   private final String configuredAppUrl;
@@ -42,9 +44,9 @@ public class PublicConfigController {
   }
 
   private String firstOrigin(String origins) {
-    if (origins == null || origins.isBlank()) return "http://127.0.0.1:3000";
+    if (origins == null || origins.isBlank()) return DEFAULT_APP_URL;
     String[] split = origins.split(",");
-    return split.length == 0 ? "http://127.0.0.1:3000" : split[0].trim();
+    return split.length == 0 || split[0].isBlank() ? DEFAULT_APP_URL : split[0].trim();
   }
 
   private String valueOrEmpty(String value) {

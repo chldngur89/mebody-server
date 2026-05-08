@@ -49,7 +49,7 @@ async function loadConfig() {
   const payload = await response.json();
   state.config = payload.data;
   document.querySelectorAll('[data-app-url]').forEach((element) => {
-    element.setAttribute('href', state.config.appUrl || 'http://127.0.0.1:3000');
+    element.setAttribute('href', state.config.appUrl || 'https://mebody-jjh.vercel.app');
   });
 }
 

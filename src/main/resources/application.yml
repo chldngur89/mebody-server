@@ -26,7 +26,7 @@ spring:
 
 mebody:
   frontend-origin: ${FRONTEND_ORIGIN:http://127.0.0.1:3000,http://localhost:3000}
-  app-url: ${MEBODY_APP_URL:}
+  app-url: ${MEBODY_APP_URL:https://mebody-jjh.vercel.app}
   supabase:
     url: ${SUPABASE_URL:}
     anon-key: ${SUPABASE_ANON_KEY:}
