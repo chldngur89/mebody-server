@@ -78,6 +78,22 @@ function showLanding() {
   $('main')?.classList.remove('hidden');
   $('.footer')?.classList.remove('hidden');
   $('#dashboardView')?.classList.add('hidden');
+  updateAccountSection();
+}
+
+function updateAccountSection() {
+  const kicker = $('#accountKicker');
+  const title = $('#accountTitle');
+  if (!kicker || !title) return;
+  
+  if (state.me) {
+    const displayName = state.me.name || state.me.nickname || state.me.email?.split('@')[0] || 'MEBODY';
+    kicker.textContent = 'MY ACCOUNT';
+    title.textContent = `${displayName}님, 다시 오신 것을 환영합니다.`;
+  } else {
+    kicker.textContent = 'ACCOUNT';
+    title.textContent = '결과를 저장하고 다음 방문에서 바로 이어보세요.';
+  }
 }
 
 function showDashboard() {
@@ -146,6 +162,11 @@ function renderMemberSummary(summary) {
   const bodyDescription = profile.bodyBtiDescription || '';
   const missionRate = Number(summary?.missionAchievementRate ?? profile.missionAchievementRate ?? 0);
 
+  const memberKicker = document.querySelector('#meSection .member-hero-card .kicker');
+  if (memberKicker) {
+    memberKicker.textContent = profile.role === 'ADMIN' ? 'ADMIN ACCOUNT' : 'MY ACCOUNT';
+  }
+
   $('#dashboardEmail').textContent = profile.email || '';
   $('#memberName').textContent = displayName;
   $('#memberEmail').textContent = profile.email || '';
@@ -213,6 +234,7 @@ function setDashboardTab(tab) {
 
 async function enterDashboard(preferredTab = 'me') {
   clearMessage();
+  updateAccountSection();
   await loadMeDashboard();
   configureDashboardAccess();
   showDashboard();
