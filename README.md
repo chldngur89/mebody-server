@@ -6,6 +6,11 @@ MEBODY Server는 웹 홈페이지, 웹 관리자, 운영 API를 담당하는 Spr
 - 배포 서버: https://mebody-server-production.up.railway.app
 - 모바일 앱 배포: https://mebody-jjh.vercel.app/
 
+## Repositories
+
+- Server (this repo): https://github.com/chldngur89/mebody-server
+- Mobile (Vite app): https://github.com/chldngur89/mebody-jjh
+
 ## Responsibilities
 
 - 웹 홈페이지 제공: `GET /`
@@ -53,7 +58,6 @@ Server/db/supabase_v1_foundation.sql
 ## Environment Variables
 
 ```bash
-cd /Users/wh.choi/Desktop/Code/mebody/Server
 cp .env.example .env
 ```
 
@@ -80,7 +84,6 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 ## Run
 
 ```bash
-cd /Users/wh.choi/Desktop/Code/mebody/Server
 mvn spring-boot:run
 ```
 
@@ -94,7 +97,6 @@ mvn spring-boot:run
 ## Build
 
 ```bash
-cd /Users/wh.choi/Desktop/Code/mebody/Server
 mvn -DskipTests package
 git diff --check
 ```
